@@ -1,21 +1,40 @@
 // from data.js
 var tableData = data;
 
+// Level 1
 // select tbody
-let tbody = d3.select("tbody");
+var tbody = d3.select('tbody');
 
-// make table from provided data
+// make table 
 function buildTable(data){
     tbody.html("");
     data.forEach((dataRow) => {
-        let row = tbody.append("tr");
+        var row = tbody.append('tr');
         Object.values(dataRow).forEach((val) => {
-           let cell = row.append("td");
+           var cell = row.append('td');
            cell.text(val);
        });
     })
 }
 
-// 
+// return table 
 buildTable(tableData);
 
+// Level 2
+// Activate 'filter' button
+d3.selectAll('#filter-btn').on('click', handleClick);
+
+// Create button function
+function handleClick(){
+    d3.event.preventDefault();
+    let date = d3.select('#datetime').property('value');
+    let filterData = tableData;
+    if(date){
+        filterData = filterData.filter((row) => row.datetime === date);
+        }
+        buildTable(filterData);
+    }
+
+// return table
+    buildTable(tableData);
+    
